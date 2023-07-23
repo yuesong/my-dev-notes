@@ -2,23 +2,13 @@
 
 Instructions for setting up Minikube (as an alternative to Docker Desktop) to run Docker containers on an Apple Silicon (M1 & M2).
 
-The instructions are based on:
-1. [How to Setup Minikube on MAC M1/M2](https://devopscube.com/minikube-mac/)
-2. [Run Docker without Docker Desktop on macOS](https://dhwaneetbhatt.com/blog/run-docker-without-docker-desktop-on-macos)
+Based on:
 
-which contain additional context and details.
+[How to run Minikube on an Apple M1 chip without Docker Desktop](
+    https://everythingdevops.dev/how-to-run-minikube-on-apple-m1-chip-without-docker-desktop/
+)
 
-## Commands
-
-### Installation
-```
-brew install qemu
-brew install socket_vmnet
-sudo brew services start socket_vmnet
-brew install minikube
-brew install docker
-brew install docker-compose
-```
+## Installation
 
 ```
 brew install minikube
@@ -27,9 +17,22 @@ brew install docker
 brew install docker-compose
 ```
 
-### Validation
+## Launch
 ```
+colima start
 minikube start
+```
+Optionally but recommended, start k8s dashboard:
+```
+minikube addons enable metrics-server
+minikube dashboard
+```
+
+## Validation
+General:
+```
+colima status
+docker ps
 kubectl get all
 ```
 Validate docker engine function:
@@ -41,12 +44,4 @@ Validate k8s function:
 kubectl create deployment kubernetes-bootcamp --image=gcr.io/google-samples/kubernetes-bootcamp:v1
 kubectl expose deployment/kubernetes-bootcamp --type="NodePort" --port 8080
 minikube service kubernetes-bootcamp
-```
-
-### Other tips
-
-Start k8s dashboard:
-```
-minikube addons enable metrics-server
-minikube dashboard
 ```
