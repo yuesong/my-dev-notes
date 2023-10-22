@@ -45,3 +45,23 @@ kubectl create deployment kubernetes-bootcamp --image=gcr.io/google-samples/kube
 kubectl expose deployment/kubernetes-bootcamp --type="NodePort" --port 8080
 minikube service kubernetes-bootcamp
 ```
+
+## Getting Started
+
+### [Minikube LoadBalancer access](https://minikube.sigs.k8s.io/docs/handbook/accessing/#loadbalancer-access)
+
+Start minikube tunnel in one terminal:
+```
+minikube tunnel
+```
+
+In another terminal:
+```
+kubectl create deployment hello-minikube1 --image=kicbase/echo-server:1.0
+kubectl expose deployment hello-minikube1 --type=LoadBalancer --port=8080
+```
+If 8080 is in use, use a different port:
+```
+kubectl expose deployment hello-minikube1 --type=LoadBalancer --port=8081 \
+    --target-port=8080
+```
